@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Map</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/map.css">
+        <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+        <script src="js/bootstrap.js" type="text/javascript"></script>
+        <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+        <script src="js/map.js" type="text/javascript"></script>    
+    </head>
+    <body>
+        <div class="container">
+            <div class="base">
+                <h3>Добавить точку</h3>
+                <form class="form-horizontal">
+                    <input type="text" class="form-control center-block" id="pointName" placeholder="введите название точки"/>
+                    <input type="text" class="form-control center-block" id="pointAddres" placeholder="введите адрес точки"/>
+                    <button type="submit" class="btn btn-default">Добавить</button>
+                </form>
+            </div>
+            <hr/>
+            <div class="base">
+                <h3>Последние добавленные точки</h3>
+                <div id="points">
+                    <button type="button" class="btn btn-link">Point1</button>
+                    <button type="button" class="btn btn-link">Point2</button>
+                    <button type="button" class="btn btn-link">Point3</button>
+                    <button type="button" class="btn btn-link">Point4</button>
+                </div>
+            </div>
+            <hr/>
+            <div class="base">
+                <h3>Точки на карте</h3>
+                <div id="map"></div>
+            </div>
+        </div>
+    </body>
+</html>
