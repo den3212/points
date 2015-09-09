@@ -5,27 +5,41 @@
  */
 package ru.sunflower.points;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 /**
  *
  * @author den
  */
+@Entity
+@NamedQueries({
+  @NamedQuery(name = "findAll", query = "select p from Point p")
+})
+@Access(AccessType.FIELD)
 public class Point {
+
+  @Id
   private String name;
   private String address;
   private Double latitude;
   private Double longitude;
 
-  public Point(){
-    
+  public Point() {
+
   }
-  
-  public Point(String name, String address, Double latitude, Double longitude){
+
+  public Point(String name, String address, Double latitude, Double longitude) {
     this.name = name;
     this.address = address;
     this.latitude = latitude;
     this.longitude = longitude;
   }
-  
+
   /**
    * @return the name
    */
@@ -81,5 +95,5 @@ public class Point {
   public void setLongitude(Double longitude) {
     this.longitude = longitude;
   }
-  
+
 }
