@@ -13,5 +13,6 @@ import java.util.List;
  */
 public interface PointsPersistence {
   List<Point> findAll();
-  boolean save(Point point);
+  Point find(String name);
+  void save(Point point);
 }
