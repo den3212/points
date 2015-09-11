@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <title>Map</title>
+    <title>Точки</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/map.css">
-    
-
+    <link rel="stylesheet" href="css/points.css">
   </head>
+  
   <body>
     <div class="container">
-      <div class="base">
+      <div class="text-center">
         <h3>Добавить точку</h3>
         <form class="form-horizontal">
           <input type="text" class="form-control center-block" id="pointName" placeholder="введите название точки"/>
@@ -20,22 +20,18 @@
         </form>
       </div>
       <hr/>
-      <div class="base">
+      <div class="text-center">
         <h3>Последние добавленные точки</h3>
-        <div id="points">
-          <button type="button" class="btn btn-link">Point1</button>
-          <button type="button" class="btn btn-link">Point2</button>
-          <button type="button" class="btn btn-link">Point3</button>
-          <button type="button" class="btn btn-link">Point4</button>
-        </div>
+        <div id="points"></div>
       </div>
       <hr/>
-      <div class="base">
+      <div class="text-center">
         <h3>Точки на карте</h3>
-        <div id="map"></div>
+        <div id="map" class="thumbnail"></div>
       </div>
     </div>
 
+    <!-- Диалог уточнения адреса -->
     <div class="modal fade" id="addressModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -53,7 +49,7 @@
         </div>
       </div>
     </div>
-
+    
     <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
     <script src="js/bootstrap.js" type="text/javascript"></script>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>

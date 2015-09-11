@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Точка - ${name}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/points.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row" style="height: 50px">
+        <a href="../../">Назад</a>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <img alt="" class="img-thumbnail center-block" src="//static-maps.yandex.ru/1.x/?pt=${longitude},${latitude},pm2bll&amp;size=400,400&amp;spn=0.016457,0.00619&amp;l=map">
+        </div>
+        <div class="col-md-6">
+          <table class="table table-bordered">
+            <tr>
+              <td class="text-right">Название:</td>
+              <td>${name}</td>
+            </tr>
+            <tr>
+              <td class="text-right">Адрес:</td>
+              <td>${address}</td>
+            </tr>
+          </table>
+        </div> 
+      </div>  
+    </div>
+
+    <script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.js" type="text/javascript"></script>
+  </body>
+
+</html>

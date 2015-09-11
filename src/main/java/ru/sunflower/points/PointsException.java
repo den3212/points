@@ -6,7 +6,7 @@
 package ru.sunflower.points;
 
 /**
- *
+ * 
  * @author deniskovalev
  */
 public class PointsException extends Exception{

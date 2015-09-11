@@ -1,10 +1,11 @@
+//Инициализация Yandex.Map
 var map;
-
 ymaps.ready(
         function () { //обработчик успеха
           map = new ymaps.Map("map", {
             center: [55.76, 37.64],
-            zoom: 7
+            zoom: 7,
+            controls: ["smallMapDefaultSet"]
           });
 
           findAll();
@@ -14,39 +15,33 @@ ymaps.ready(
         }
 );
 
+//Установить обработчик для кнопки "Добавить"
 $('#btnAdd').on('click', function () {
-  createPoint($('#pointName').val(), $('#pointAddress').val());
-  return false;
+  geocode($('#pointAddress').val());
 });
 
+//Вычитать сохраненные точки
 function findAll() {
   $.ajax({
     type: 'GET',
     url: 'rest/points',
     dataType: "json",
-    success: renderList
+    success: drawPoints
   });
 }
 
-
-function createPoint(name, address) {
+// Сохранить новую точку
+function savePoint(point) {
   $.ajax({
     type: 'POST',
     contentType: 'application/json',
     url: 'rest/points',
     dataType: "json",
-    data: JSON.stringify({'name': name, 'address': address}),
+    data: JSON.stringify(point),
     success: function (data, textStatus, jqXHR) {
-      var points = data == null ? [] : (data instanceof Array ? data : [data]);
-      if (points.length == 1) {
-        addPoint(points[0]);
-      } else {
-        $('#listAddress').empty();
-        $.each(points, function (index, point) {
-          addAddress(point);
-        });
-        $('#addressModal').modal('show')
-      }
+      drawPoint(point);
+      $('#pointName').val('');
+      $('#pointAddress').val('');
     },
     error: function (jqXHR, textStatus, errorThrown) {
       alert(jqXHR.responseText);
@@ -54,11 +49,18 @@ function createPoint(name, address) {
   });
 }
 
-function addPoint(point) {
-  var btn = $('<button type="button" class="btn btn-link">' + point.name + '</button>');
-  btn.bind('click', function () {
-    console.log(point.name);
+//Отобразить точки на странице
+function drawPoints(data) {
+  var points = data === null ? [] : (data instanceof Array ? data : [data]);
+  $('#points').empty();
+  $.each(points, function (index, point) {
+    drawPoint(point);
   });
+}
+
+//Отобразить точку на странице (в списке и на карте)
+function drawPoint(point) {
+  var btn = $('<a href="rest/points/' + encodeURIComponent(point.name) + '" class="btn btn-link">' + point.name + '</a>');
   $('#points').append(btn);
 
   map.geoObjects.add(
@@ -70,21 +72,48 @@ function addPoint(point) {
           );
 }
 
-function addAddress(point){
-  var line = $('<li class="list-group-item">' + point.address + '</li>');
-  line.on('click', function(){
-    $('#addressModal').modal('hide')
-    $('#pointAddress').val(point.address);
+//Выполнить прямое геокодирование
+function geocode(address){
+  $.ajax({
+    type: 'GET',
+    url: 'rest/geocode?address=' + encodeURIComponent(address),
+    success: function (data, textStatus, jqXHR) {
+      var points = data === null ? [] : (data instanceof Array ? data : [data]);
+      
+      if (points.length === 1) {
+        //добавляем имя точки
+        points[0].name = $('#pointName').val();
+        //сохраняем точку
+        savePoint(points[0]);
+      } else {
+        //требуется уточнение адреса
+        completeAddress(points);
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert(jqXHR.responseText);
+    }
   });
-  $('#listAddress').append(line);
 }
 
-function renderList(data) {
-  var points = data == null ? [] : (data instanceof Array ? data : [data]);
-
-  $('#points').empty();
-
+//Отобразить диалог уточнения адреса
+function completeAddress(points) {
+  $('#listAddress').empty();
   $.each(points, function (index, point) {
-    addPoint(point);
+    addAddressLine(point);
   });
+  $('#addressModal').modal('show');
+}
+
+//Добавить в диалог уточнения адреса строку с адресом 
+function addAddressLine(point) {
+  var line = $('<li class="list-group-item">' + point.address + '</li>');
+  line.on('click', function () {
+    $('#addressModal').modal('hide');
+    //добавляем имя точки
+    point.name = $('#pointName').val();
+    //сохраняем точку
+    savePoint(point);
+  });
+  $('#listAddress').append(line);
 }

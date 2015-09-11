@@ -12,7 +12,7 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 /**
- *
+ * Обработчик исключений для Jersey 
  * @author deniskovalev
  */
 @Provider

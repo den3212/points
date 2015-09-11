@@ -13,8 +13,8 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 /**
- *
- * @author den
+ * JPA реализация интерфейса доступа к данным
+ * @author deniskovalev
  */
 public class PointsPersistenceJPA implements PointsPersistence {
 

@@ -29,11 +29,17 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- *
+ * Класс для работы с Yandex Geocoder
+ * 
  * @author deniskovalev
  */
 public class YandexGeocoder {
 
+  /**
+   * Выполнить прямое геокодирование
+   * @param address адрес или часть адреса
+   * @return найденные адреса
+   */
   public static List<Point> direct(String address) {
     try {
       URL url = new URL("https://geocode-maps.yandex.ru/1.x/?geocode=" + URLEncoder.encode(address, "UTF-8") + "&format=xml");

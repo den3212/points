@@ -13,8 +13,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
- *
- * @author den
+ * Сущность Point
+ * @author deniskovalev
  */
 @Entity
 @NamedQueries({
